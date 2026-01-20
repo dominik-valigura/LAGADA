@@ -1,0 +1,56 @@
+html, body {
+  padding: 0;
+  background-image: url("./image/space.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  display: block;
+}
+
+#game {
+  position: relative;
+  width: fit-content;
+  margin: auto;
+}
+
+canvas {
+  display: block;
+  z-index: 1;
+}
+
+#ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@font-face {
+  font-family: "myFont";
+  src: url("font/Pix32.ttf") format("truetype");
+}
+
+button {
+  font-family: "myFont";
+  font-size: 65px;
+  color:rgb(214, 214, 214);
+  background: transparent;
+  cursor: pointer;
+  border: none;
+  position: absolute;
+  pointer-events: auto;
+  transform-origin: center;
+  white-space: nowrap;
+  transition: all 0.5s ease;
+}
+
+#button3{
+  color: rgb(219, 3, 3);
+}
+
+button:hover {
+  font-size: 79px;
+  color: white;
+}
