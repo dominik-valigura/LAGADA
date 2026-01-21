@@ -28,6 +28,7 @@ function gameReset(){
     explosions = [];
     wave = 1;
     spawned = 0;
+    bossHealth = 100;
     spawnCooldown1 = 100;
     spawnCooldown2 = 65
     waveCooldown = 240;
@@ -298,5 +299,6 @@ function startGame(){
           }
         }
       }
+
 
   } 
