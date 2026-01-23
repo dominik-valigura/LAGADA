@@ -9,14 +9,13 @@ let waveActive = true;
 let wave = 1;
 let spawned = 0;
 let bossHealth = 100;
-let spawnCooldown1 = 100;
-let spawnCooldown2 = 65;
+let spawnCooldown1 = 150;
+let spawnCooldown2 = 90;
 let totalEnemies1 = 20;
 let totalEnemies2 = 45;
 let waveCooldown = 240;
 let waveTextTimer = 120;
 let animationDelay1 = 7;
-let animationDelay2 = 7;
 let score = 0;
 let bossTime = 0;
 
@@ -29,13 +28,14 @@ function gameReset(){
     wave = 1;
     spawned = 0;
     bossHealth = 100;
-    spawnCooldown1 = 100;
-    spawnCooldown2 = 65
+    spawnCooldown1 = 150;
+    spawnCooldown2 = 90;
     waveCooldown = 240;
     totalEnemies1 = 20;
     totalEnemies2 = 45;
     animationDelay1 = 7;
     animationDelay2 = 7;
+    score = 0;
 }
 
 function startGame(){
@@ -87,7 +87,6 @@ function startGame(){
         }
 
 //____________________________________________1. VLNA____________________________________________
-
       if (waveActive && wave === 1) {
         
         spawnCooldown1--;
@@ -95,10 +94,10 @@ function startGame(){
           if(spawnCooldown1 <= 0 && spawned < totalEnemies1){
             enemies.push(new Enemy(random(60, width - 60), -40, images["enemy"]));
             spawned++;
-            spawnCooldown1 = 100;
+            spawnCooldown1 = 150;
           }  
             
-            if(spawned >= 20 && enemies.length === 0){
+            if(spawned >= 0 && enemies.length === 0){
               fill(255, alpha1);
               text("WAVE 2", width / 2, height / 2);
               waveCooldown--;
@@ -116,7 +115,11 @@ function startGame(){
                 enemy.draw();
                 
                 
-                if (enemy.y > height + enemy.h) enemies.splice(i, 1);
+                if (enemy.y > height + enemy.h){
+                  enemies.splice(i, 1);
+                  score -= 10;
+                  spawned--;
+                } 
              }
 
 //____________________________________________2. VLNA____________________________________________
@@ -128,10 +131,10 @@ function startGame(){
           if(spawnCooldown2 <= 0 && spawned < totalEnemies2){
             enemies.push(new Enemy(random(60, width - 60), -40, images["enemy"]));
             spawned++;
-            spawnCooldown2 = 65;
+            spawnCooldown2 = 90;
           }  
             
-            if(spawned >= 45 && enemies.length === 0){
+            if(spawned >= 0 && enemies.length === 0){
               fill(255, alpha1);
               text("WAVE 3", width / 2, height / 2);
               waveCooldown--;
@@ -148,8 +151,14 @@ function startGame(){
                 enemy.draw();
                 
                 
-                if (enemy.y > height + enemy.h) enemies.splice(i, 1);
+                if (enemy.y > height + enemy.h){
+                  enemies.splice(i, 1);
+                  score -= 10;
+                  spawned--;
+                } 
+
              }
+             console.log(spawned)
 
 //____________________________________________3. VLNA____________________________________________
       if (waveActive && wave === 3) {
@@ -159,7 +168,11 @@ function startGame(){
         boss.draw();
 
         if(boss.y >= 0){
-          fill(199, 3, 3);
+          if(bossHealth > 50){
+            fill(199, 3, 3);
+          }else{
+            fill(96, 31, 158);
+          }
           noStroke();
           rect(width / 2 - 108, 71, bossHealth * 2.2, 29);
           if(frameCount % 60 === 0){
@@ -197,6 +210,7 @@ function startGame(){
           bossHealth--;
 
           if(bossHealth <= 0){
+            score += 1000;
             waveActive = false;
             end = true;
             if(bossTime > 60){
@@ -249,26 +263,13 @@ function startGame(){
 
         if (p.offScreen()) {
           enemyProjectiles.splice(i, 1);
-          score -= 25;
           continue;
         }
 
         if (player.collidesWith(p)) {
-            const px = player.x;
-            const py = player.y;
-          if(animationDelay2 > 0){
-            animationDelay2--;
-            explosions.push({
-              x: px,
-              y: py,
-              frameIndex: 0,
-              timer: 0
-            });
-          }else{
             end = true;
           }
         }
-      }
 
 //____________________________PROJEKTILY: BOSS_______________________________
 
@@ -283,22 +284,8 @@ function startGame(){
           continue;
         }
 
-        if (player.collidesWith(p)) {
-            const px2 = player.x;
-            const py2 = player.y;
-          if(animationDelay2 > 0){
-            animationDelay2--;
-            explosions.push({
-              x: px2,
-              y: py2,
-              frameIndex: 0,
-              timer: 0
-            });
-          }else{
-            end = true;
-          }
-        }
+      if(player.collidesWith(p)){
+        end = true;
       }
-
-
-  } 
+    }
+  }
