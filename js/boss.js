@@ -33,25 +33,53 @@ class Boss extends Entity {
             if(this.cooldown > 0){
                 this.cooldown--;
             } else{
-                this.randomAttack = int(random(1,4));
-                switch(this.randomAttack){
-                    case 1:
-                        this.leftAttack();
-                        break;
-                    case 2:
-                        this.rightAttack();
-                        break;
-                    case 3:
-                        this.spawnEnemies();
-                        break;        
+                if(bossHealth > 50){
+                    this.randomAttack = int(random(1,4));
+                        switch(this.randomAttack){
+                            case 1:
+                                this.leftAttack();
+                                break;
+                            case 2:
+                                this.rightAttack();
+                                break;
+                            case 3:
+                                this.spawnEnemies();
+                                break;          
+                        }
+                    this.cooldown = int(random(150,200));
+
+                }else{
+                    this.randomAttack = int(random(1,5));
+                        switch(this.randomAttack){
+                            case 1:
+                                this.leftAttack();
+                                this.rightAttack();
+                                break;
+                            case 2:
+                                this.leftAttack();
+                                break; 
+                            case 3:
+                                this.leftAttack();
+                                this.rightAttack();
+                                break;   
+                            case 4:
+                                this.rightAttack();
+                                break;                
+                        }
+                    this.cooldown = int(random(110,145));
+
                 }
-                this.cooldown = int(random(150,200));
 
             }
-
+                
             if(this.cooldown2 <= 0){
                     this.normalShooting();
-                    this.cooldown2 = int(random(40, 70));
+                    if(bossHealth > 50){
+                        this.cooldown2 = int(random(40, 70));
+                    }else{
+                        this.cooldown2 = int(random(40, 55));
+                    }
+                    
                 }else{
                     this.cooldown2--;
                 }
