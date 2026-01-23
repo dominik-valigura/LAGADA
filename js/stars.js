@@ -2,8 +2,8 @@ class Star {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.size = 10;
-    this.speed = 5;
+    this.size = int(random(5,12));
+    this.speed = int(random(3,8));
   }
 
   fall() {
@@ -19,3 +19,5 @@ class Star {
     return this.y > height + this.size;
   }
 }
+
+
