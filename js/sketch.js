@@ -42,7 +42,7 @@ function preload(){
 
 function setup() {
   imageMode(CENTER);
-  canvas = createCanvas(windowWidth / 2, windowHeight);
+  canvas = createCanvas(windowWidth / 2, windowHeight - 7);
   canvas.parent("game");
 
 //______________________________________START HRY / TUTORIAL / HUDBA ______________________________________
@@ -97,7 +97,7 @@ function spawnStar() {
 function draw() {
   background (1);
    
-  if (frameCount % 3 === 0) {
+  if (frameCount % 2 === 0) {
     spawnStar();
   }
   for (let i = stars.length - 1; i >= 0; i--) {
@@ -125,14 +125,25 @@ function draw() {
     if(score < 0){
       score = 0;
     }
+      push();
       fill(0,255,0);
       text(`YOUR SCORE IS ${score}`, width / 2, height / 2);
       fill(255);
+      textSize(50);
       text("PRESS ESC TO RETURN TO MENU...", width / 2, height / 2 + 150);
+      pop();
       if(victoryNumber === 1){
         victory.play();
         victoryNumber--;
       }
+  }
+
+  if(waveActive){
+    push();
+    textSize(35);
+    fill(0,255,0)
+    text(`SCORE: ${score}`, width * 0.15, height - 12);
+    pop();
   }
 
 //____________________________________________MENU____________________________________________
