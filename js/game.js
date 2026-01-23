@@ -97,7 +97,7 @@ function startGame(){
             spawnCooldown1 = 150;
           }  
             
-            if(spawned >= 0 && enemies.length === 0){
+            if(spawned >= 20 && enemies.length === 0){
               fill(255, alpha1);
               text("WAVE 2", width / 2, height / 2);
               waveCooldown--;
@@ -134,7 +134,7 @@ function startGame(){
             spawnCooldown2 = 90;
           }  
             
-            if(spawned >= 0 && enemies.length === 0){
+            if(spawned >= 45 && enemies.length === 0){
               fill(255, alpha1);
               text("WAVE 3", width / 2, height / 2);
               waveCooldown--;
@@ -289,3 +289,4 @@ function startGame(){
       }
     }
   }
+
