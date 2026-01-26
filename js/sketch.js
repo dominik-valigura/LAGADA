@@ -97,7 +97,7 @@ function spawnStar() {
 function draw() {
   background (1);
    
-  if (frameCount % 2 === 0) {
+  if (frameCount % 3 === 0) {
     spawnStar();
   }
   for (let i = stars.length - 1; i >= 0; i--) {
